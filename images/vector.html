@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Векторные иллюстрации: работа в Adobe Illustrator, принципы векторной графики">
+  <meta name="keywords" content="векторная графика, Adobe Illustrator, иллюстрация, логотип, дизайн, рисование в цифре">
+  <title>Векторные иллюстрации — Ветер указывает путь</title>
+  <link rel="stylesheet" href="css/style1.css" />
+</head>
+<body>
+  <header>
+    <h1>Векторные иллюстрации</h1>
+  </header>
+
+  <!-- Единая навигация -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="raster.html">Растровые работы</a></li>
+      <li><a href="vector.html">Векторные иллюстрации</a></li>
+      <li><a href="animation.html">Анимация</a></li>
+    </ul>
+  </nav>
+
+  <main>
+  <hr>
+    <article id="theory">
+      <section>
+        <h2>Что такое векторная графика?</h2>
+        <p>
+          Векторная графика — это способ представления изображений с помощью математических формул, описывающих линии, кривые и фигуры.
+          В отличие от растровой графики (где изображение состоит из пикселей), векторное изображение можно масштабировать без потери качества.
+        </p>
+        <p>
+          Это делает его идеальным для логотипов, шрифтов, иконок, плакатов и любых задач, где требуется чёткость на любом размере.
+        </p>
+      </section>
+
+      <section>
+        <h2>Adobe Illustrator — инструмент профессионалов</h2>
+        <p>
+          Adobe Illustrator — один из самых мощных инструментов для создания векторной графики. Он позволяет:
+        </p>
+        <ul>
+          <li>Создавать сложные формы с помощью Pen Tool и Shape Builder;</li>
+          <li>Работать с цветовыми градиентами, узорами и эффектами;</li>
+          <li>Использовать слои и группы для удобного управления элементами;</li>
+          <li>Экспортировать работу в различные форматы: SVG, PDF, EPS, PNG.</li>
+        </ul>
+        <p>
+          Для меня Illustrator — это не просто программа, а пространство для экспериментов: от простых фигур до сложных композиций.
+        </p>
+      </section>
+
+      <section>
+        <h2>Принципы работы с векторами</h2>
+        <ol>
+          <li><strong>Точность и контроль:</strong> Каждый узел и сегмент кривой можно изменить — это даёт полную свободу.</li>
+          <li><strong>Масштабируемость:</strong> Логотип, созданный в Illustrator, можно увеличить до размера билборда — и он останется чётким.</li>
+          <li><strong>Минимализм и чистота:</strong> Вектор часто используется для «чистого» дизайна — без лишних деталей.</li>
+          <li><strong>Цветовые модели:</strong> CMYK для печати, RGB для экрана — важно выбирать правильную модель при начале проекта.</li>
+        </ol>
+      </section>
+    </article>
+
+    <article id="gallery">
+		<h2>Мои векторные работы</h2>
+		<p style="text-align: center; color: var(--text-light); margin-bottom: 1.5rem;">
+		Наведи курсор, чтобы остановить вращение и увидеть детали.
+		</p>
+
+		<div class="carousel-container">
+			<div class="carousel" id="vectorCarousel">
+				<!-- Изображения будут добавлены скриптом -->
+			</div>
+		</div>
+	</article>
+  </main>
+
+  <footer>
+  <hr>
+    <p>Следи за моими новыми работами в Telegram:</p>
+    <p><a href="https://t.me/small_purple_rain_art" target="_blank">@small_purple_rain_art</a></p>
+    <p class="copyright">&copy; 2025 Анна. Все работы — авторские.</p>
+  </footer>
+
+  
+  <script>
+  // === МЕСТО ДЛЯ ТВОИХ ВЕКТОРНЫХ РАБОТ ===
+  const vectorWorks = [
+    { src: "images/Архаическая.png", alt: "Архаическая стилизация летучей мыши" },
+    { src: "images/зима.png", alt: "Зимний пейзаж" },
+    { src: "images/Монохром.png", alt: "Монохромная летучая мышь" },
+    { src: "images/Полярные.png", alt: "Полярные тона" },
+    { src: "images/Правило треугольника.png", alt: "Композиция по правилу треугольника" },
+    { src: "images/Родственно-контрастные.png", alt: "Родственно-контрастные цвета" },
+    { src: "images/Родственные_1.png", alt: "Родственные цвета, вариант 1" },
+    { src: "images/Родственные_2.png", alt: "Родственные цвета, вариант 2" },
+    { src: "images/лаб1.png", alt: "Летучая мышь из графических примитивов" }
+  ];
+
+  const carousel = document.getElementById('vectorCarousel');
+  const angleStep = 360 / vectorWorks.length;
+  const radius = 300;
+
+  vectorWorks.forEach((work, i) => {
+    const item = document.createElement('div');
+    item.className = 'carousel-item';
+    item.style.setProperty('--i', i);
+    item.style.setProperty('--angle-step', angleStep);
+    item.style.setProperty('--radius', radius);
+
+    const img = document.createElement('img');
+    img.src = work.src;
+    img.alt = work.alt;
+    img.loading = 'lazy';
+
+    item.appendChild(img);
+    carousel.appendChild(item);
+  });
+
+  // === Управление вращением: только при наведении ===
+  let isRotating = false;
+  let rotationAngle = 0;
+  let animationFrameId = null;
+
+  function rotate() {
+    if (!isRotating) return;
+    rotationAngle += 0.1; // ⚡ Замедлили вращение
+    carousel.style.transform = `rotateY(${rotationAngle}deg)`;
+    animationFrameId = requestAnimationFrame(rotate);
+  }
+
+  carousel.addEventListener('mouseenter', () => {
+    isRotating = true;
+    rotate();
+  });
+
+  carousel.addEventListener('mouseleave', () => {
+    isRotating = false;
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+  });
+</script>
+
+	<!-- Подключение JS для искорок -->
+  <script src="js/main.js"></script>
+</body>
+</html>
