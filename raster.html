@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Растровые работы: цифровая живопись, текстуры, эксперименты с цветом">
+  <meta name="keywords" content="растровая графика, цифровое рисование, Photoshop, Procreate, живопись, арт">
+  <title>Растровые работы — Ветер указывает путь</title>
+  <link rel="stylesheet" href="css/style1.css" />
+</head>
+<body>
+  <header>
+    <h1>Растровые работы</h1>
+  </header>
+
+  <!-- Единая навигация -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="raster.html">Растровые работы</a></li>
+      <li><a href="vector.html">Векторные иллюстрации</a></li>
+      <li><a href="animation.html">Анимация</a></li>
+    </ul>
+  </nav>
+
+  <main>
+  <hr>
+    <article id="theory">
+      <section>
+        <h2>Что такое растровая графика?</h2>
+        <p>
+          Растровая графика — это изображение, состоящее из пикселей. Каждый пиксель имеет свой цвет, и общее качество зависит от разрешения (количества пикселей на дюйм).
+        </p>
+        <p>
+          Это идеальный формат для живописи, фотографий, текстур и любых работ, где важна детализация и градиенты.
+        </p>
+      </section>
+
+      <section>
+        <h2>Цифровая живопись: мой инструмент</h2>
+        <p>
+          Я использую программы для растровой графики — такие как Adobe Photoshop или Procreate — чтобы создавать:
+        </p>
+        <ul>
+          <li>Экспериментальные композиции;</li>
+          <li>Текстуры и фоны;</li>
+          <li>Эмоциональные портреты и атмосферные сцены.</li>
+        </ul>
+        <p>
+          Здесь я могу позволить себе «пачкать» кисти, смешивать цвета и создавать эффекты, недоступные в векторе.
+        </p>
+      </section>
+
+      <section>
+        <h2>Особенности работы с растрами</h2>
+        <ol>
+          <li><strong>Качество зависит от масштаба:</strong> увеличение может привести к пикселизации.</li>
+          <li><strong>Слои и маски:</strong> позволяют работать над деталями без потери исходного изображения.</li>
+          <li><strong>Форматы:</strong> PNG (без потерь), JPEG (сжатие), PSD (слои).</li>
+          <li><strong>Цветовая модель:</strong> RGB — основная для экранов.</li>
+        </ol>
+      </section>
+    </article>
+
+    <article id="gallery">
+      <h2>Мои растровые работы</h2>
+      <p style="text-align: center; color: var(--text-light); margin-bottom: 1.5rem;">
+        Наведи курсор на карусель — она начнёт вращаться. Убери курсор — остановится.
+      </p>
+
+      <div class="carousel-container">
+        <div class="carousel" id="rasterCarousel">
+          <!-- Изображения будут добавлены скриптом -->
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+  <hr>
+    <p>Следи за моими новыми работами в Telegram:</p>
+    <p><a href="https://t.me/small_purple_rain_art" target="_blank">@small_purple_rain_art</a></p>
+    <p class="copyright">&copy; 2025 Анна. Все работы — авторские.</p>
+  </footer>
+
+
+
+  <!-- Скрипт для генерации карусели -->
+  <script>
+    // === 🔥 МЕСТО ДЛЯ ТВОИХ ИЗОБРАЖЕНИЙ 🔥 ===
+    const rasterWorks = [
+      { src: "images/meet.jpg", alt: "meet the artist" },
+      { src: "images/angel.jpg", alt: "Персонаж в образе ангела" },
+      { src: "images/Idol_Yullis.jpg", alt: "Idol Yullis — портрет персонажа" },
+      { src: "images/лис.jpg", alt: "Лис — атмосферный портрет" },
+      { src: "images/Ава.jpg", alt: "Ава — девушка с зелёным шарфом" },
+      { src: "images/Юл.png", alt: "Юл — персонаж с голубыми волосами" },
+	  { src: "images/на хеллоуин.jpg", alt: "На Хэллоуин — мистическая сцена" },
+      { src: "images/B-Day_Seraphim.png", alt: "День рождения Серапим — праздничный дизайн" }
+    ];
+
+    const carousel = document.getElementById('rasterCarousel');
+    const angleStep = 360 / rasterWorks.length;
+    const radius = 300;
+
+    rasterWorks.forEach((work, i) => {
+      const item = document.createElement('div');
+      item.className = 'carousel-item';
+      item.style.setProperty('--i', i);
+      item.style.setProperty('--angle-step', angleStep);
+      item.style.setProperty('--radius', radius);
+
+      const img = document.createElement('img');
+      img.src = work.src;
+      img.alt = work.alt;
+      img.loading = 'lazy';
+
+      // Не добавляем подпись — по желанию можно раскомментировать
+      // const label = document.createElement('div');
+      // label.className = 'carousel-label';
+      // label.textContent = work.alt.split(' ').slice(0, 2).join(' ');
+      // item.appendChild(label);
+
+      item.appendChild(img);
+      carousel.appendChild(item);
+    });
+
+    // === Поведение карусели: вращается только при наведении ===
+    let isRotating = false;
+    let rotationAngle = 0;
+    let animationFrameId = null;
+
+    function rotate() {
+      if (!isRotating) return;
+      rotationAngle += 0.1; // скорость вращения
+      carousel.style.transform = `rotateY(${rotationAngle}deg)`;
+      animationFrameId = requestAnimationFrame(rotate);
+    }
+
+    carousel.addEventListener('mouseenter', () => {
+      isRotating = true;
+      rotate();
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isRotating = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    });
+  </script>
+  
+    <!-- Подключение JS для искорок -->
+  <script src="js/main.js"></script>
+</body>
+</html>

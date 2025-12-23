@@ -1,0 +1,147 @@
+/* Цветовая схема: чёрно-фиолетовая с балансом */
+:root {
+  --bg-color: #0f0f15;               /* тёмный фон */
+  --text-color: #e0d6eb;             /* светло-лавандовый текст */
+  --accent-color: #9a67ea;           /* мягкий фиолетовый акцент */
+  --button-bg: #1a1a25;              /* чуть светлее фона для кнопок */
+  --button-hover: #252535;           /* при наведении */
+  --link-color: #b886ff;             /* светло-фиолетовая ссылка */
+  --footer-text: #a99bc6;
+  --font-main: 'Segoe UI', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  padding: 2rem;
+}
+
+/* Заголовок */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+header h1 {
+  color: var(--accent-color);
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--footer-text);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Навигация — одинаковые по размеру кнопки */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+  padding: 0;
+}
+
+.main-nav li {
+  /* Одинаковая ширина и высота для всех кнопок */
+  width: 220px;
+  height: 60px;
+}
+
+.main-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--button-bg);
+  color: var(--link-color);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  border: 1px solid #332f40;
+  padding: 0; /* убираем, т.к. выравниваем через flex */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+  background-color: var(--button-hover);
+  color: #ffffff;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(154, 103, 234, 0.25);
+}
+
+/* Основной контент */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about h2 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.about p {
+  margin-bottom: 1.2rem;
+  color: #d0c6e0;
+}
+
+/* Подвал — Telegram и копирайт */
+footer {
+  margin-top: 4rem;
+  text-align: center;
+  color: var(--footer-text);
+}
+
+footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.copyright {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-nav li {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  body {
+    padding: 1.2rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+}
